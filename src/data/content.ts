@@ -3,6 +3,8 @@ export const site = {
   role: "Software Developer",
   location: "Ambala, Haryana",
   email: "tusharsohal2003@gmail.com",
+  resumeUrl:
+    "https://drive.google.com/file/d/1xzHCliRKpTbM_S3P3dEHQOpJYN0dXGnm/view?usp=sharing",
   mediumUrl: "https://medium.com/@tusharsohal",
   mediumFeed: "https://medium.com/feed/@tusharsohal",
   profileImage: "/profile.png",
@@ -154,12 +156,23 @@ export const skillGroups = [
   },
 ] as const;
 
+export type Project = {
+  title: string;
+  description: string;
+  href?: string;
+  tags: string[];
+};
+
+/** Add projects here — section appears on the homepage once this list is non-empty. */
+export const projects: Project[] = [];
+
 export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
-  { label: "Medium", href: "#blog" },
+  { label: "Projects", href: "#projects" },
+  { label: "Blogs", href: "#blog" },
   { label: "Message", href: "#message" },
   { label: "Contact", href: "#contact" },
 ] as const;

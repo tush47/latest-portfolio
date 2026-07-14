@@ -6,6 +6,7 @@ import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
+import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 
 export const revalidate = 3600;
@@ -21,6 +22,7 @@ export default function Home() {
           <Experience />
           <Education />
           <Skills />
+          <Projects />
           <Blog />
           <ContactForm />
         </main>

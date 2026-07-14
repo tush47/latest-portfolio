@@ -31,37 +31,21 @@ type SkillPillProps = {
 
 function SkillPill({ label, index }: SkillPillProps) {
   const reduceMotion = useReducedMotion();
-  const duration = 2.6 + (index % 5) * 0.35;
-  const delay = (index % 7) * 0.18;
 
   return (
-    // Fixed layout box — scale happens inside so siblings/sections don't reflow.
     <span className="skill-pill-slot">
       <motion.span
         className="skill-pill skill-pill-colorful"
         style={skillStyle(index)}
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.92 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
-        animate={
-          reduceMotion
-            ? undefined
-            : {
-                scale: [1, 1.06, 1],
-              }
-        }
         transition={{
-          opacity: { duration: 0.35, delay: Math.min(index, 12) * 0.03 },
-          scale: reduceMotion
-            ? { duration: 0.35 }
-            : {
-                duration,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay,
-              },
+          duration: 0.35,
+          delay: Math.min(index, 12) * 0.03,
+          ease: [0.22, 1, 0.36, 1],
         }}
-        whileHover={reduceMotion ? undefined : { scale: 1.12 }}
+        whileHover={reduceMotion ? undefined : { y: -2 }}
       >
         {label}
       </motion.span>

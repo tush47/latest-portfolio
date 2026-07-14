@@ -1,14 +1,67 @@
 "use client";
 
-import { Burger, Container, Drawer, Group, Stack } from "@mantine/core";
+import { ActionIcon, Burger, Button, Container, Drawer, Group, Stack } from "@mantine/core";
 import { useDisclosure, useWindowScroll } from "@mantine/hooks";
-import { navLinks, site } from "@/data/content";
+import { IconFileText } from "@tabler/icons-react";
+import { navLinks, projects, site } from "@/data/content";
 import { ThemeToggle } from "./ThemeToggle";
+
+const resumeButtonStyles = {
+  root: {
+    background: "var(--accent)",
+    color: "var(--accent-contrast)",
+    fontWeight: 600,
+    border: "none",
+  },
+} as const;
+
+function ResumeButton() {
+  return (
+    <Button
+      component="a"
+      href={site.resumeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      size="sm"
+      radius="xl"
+      styles={resumeButtonStyles}
+    >
+      Resume
+    </Button>
+  );
+}
+
+function ResumeIconButton() {
+  return (
+    <ActionIcon
+      component="a"
+      href={site.resumeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="subtle"
+      size="lg"
+      radius="xl"
+      aria-label="Open resume"
+      styles={{
+        root: {
+          color: "var(--fg)",
+          border: "1px solid var(--border)",
+          background: "var(--bg-elevated)",
+        },
+      }}
+    >
+      <IconFileText size={18} stroke={1.75} />
+    </ActionIcon>
+  );
+}
 
 export function Navbar() {
   const [opened, { toggle, close }] = useDisclosure(false);
   const [scroll] = useWindowScroll();
   const elevated = scroll.y > 12;
+  const links = navLinks.filter(
+    (link) => link.href !== "#projects" || projects.length > 0,
+  );
 
   return (
     <>
@@ -23,20 +76,22 @@ export function Navbar() {
         <Container size="lg" py="md">
           <Group justify="space-between" wrap="nowrap">
             <a href="#about" className="brand-mark text-xl md:text-2xl">
-              {site.name.split(" ")[0]}
+              {site.name}
             </a>
 
             <Group gap="lg" visibleFrom="sm" wrap="nowrap">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <a key={link.href} href={link.href} className="nav-link">
                   {link.label}
                 </a>
               ))}
               <ThemeToggle />
+              <ResumeButton />
             </Group>
 
             <Group gap="sm" hiddenFrom="sm" wrap="nowrap">
               <ThemeToggle />
+              <ResumeIconButton />
               <Burger
                 opened={opened}
                 onClick={toggle}
@@ -53,14 +108,14 @@ export function Navbar() {
         onClose={close}
         position="right"
         size="xs"
-        title={<span className="brand-mark text-lg">{site.name.split(" ")[0]}</span>}
+        title={<span className="brand-mark text-lg">{site.name}</span>}
         styles={{
           content: { background: "var(--bg)" },
           header: { background: "var(--bg)" },
         }}
       >
         <Stack gap="md" mt="md">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
